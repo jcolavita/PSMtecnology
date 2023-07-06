@@ -34,6 +34,9 @@ namespace TrabajoDeGrado.Secciones.Estudiantes_y_Profesores.Estudiantes
             this.btnrestablecer = new System.Windows.Forms.Button();
             this.Btnagregar = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.cbreportes = new System.Windows.Forms.CheckBox();
+            this.lblestado = new System.Windows.Forms.Label();
+            this.cbestado = new System.Windows.Forms.ComboBox();
             this.label10 = new System.Windows.Forms.Label();
             this.Tbcorreo = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -61,8 +64,6 @@ namespace TrabajoDeGrado.Secciones.Estudiantes_y_Profesores.Estudiantes
             this.label2 = new System.Windows.Forms.Label();
             this.Btncerrar = new System.Windows.Forms.Button();
             this.lblcabecera = new System.Windows.Forms.Label();
-            this.lblestado = new System.Windows.Forms.Label();
-            this.cbestado = new System.Windows.Forms.ComboBox();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
@@ -113,6 +114,7 @@ namespace TrabajoDeGrado.Secciones.Estudiantes_y_Profesores.Estudiantes
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.White;
+            this.panel2.Controls.Add(this.cbreportes);
             this.panel2.Controls.Add(this.lblestado);
             this.panel2.Controls.Add(this.cbestado);
             this.panel2.Controls.Add(this.label10);
@@ -147,6 +149,42 @@ namespace TrabajoDeGrado.Secciones.Estudiantes_y_Profesores.Estudiantes
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(390, 365);
             this.panel2.TabIndex = 1;
+            // 
+            // cbreportes
+            // 
+            this.cbreportes.AutoSize = true;
+            this.cbreportes.Enabled = false;
+            this.cbreportes.Location = new System.Drawing.Point(223, 336);
+            this.cbreportes.Name = "cbreportes";
+            this.cbreportes.Size = new System.Drawing.Size(69, 17);
+            this.cbreportes.TabIndex = 63;
+            this.cbreportes.Text = "Reportes";
+            this.cbreportes.UseVisualStyleBackColor = true;
+            // 
+            // lblestado
+            // 
+            this.lblestado.AutoSize = true;
+            this.lblestado.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
+            this.lblestado.Location = new System.Drawing.Point(10, 236);
+            this.lblestado.Name = "lblestado";
+            this.lblestado.Size = new System.Drawing.Size(50, 16);
+            this.lblestado.TabIndex = 62;
+            this.lblestado.Text = "Estado";
+            this.lblestado.Visible = false;
+            // 
+            // cbestado
+            // 
+            this.cbestado.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbestado.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
+            this.cbestado.FormattingEnabled = true;
+            this.cbestado.Items.AddRange(new object[] {
+            "ACTIVO",
+            "INACTIVO"});
+            this.cbestado.Location = new System.Drawing.Point(9, 255);
+            this.cbestado.Name = "cbestado";
+            this.cbestado.Size = new System.Drawing.Size(177, 24);
+            this.cbestado.TabIndex = 61;
+            this.cbestado.Visible = false;
             // 
             // label10
             // 
@@ -403,7 +441,7 @@ namespace TrabajoDeGrado.Secciones.Estudiantes_y_Profesores.Estudiantes
             // 
             this.tbcedula.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
             this.tbcedula.Location = new System.Drawing.Point(10, 59);
-            this.tbcedula.MaxLength = 8;
+            this.tbcedula.MaxLength = 9;
             this.tbcedula.Name = "tbcedula";
             this.tbcedula.Size = new System.Drawing.Size(176, 22);
             this.tbcedula.TabIndex = 22;
@@ -443,31 +481,6 @@ namespace TrabajoDeGrado.Secciones.Estudiantes_y_Profesores.Estudiantes
             this.lblcabecera.Size = new System.Drawing.Size(162, 24);
             this.lblcabecera.TabIndex = 8;
             this.lblcabecera.Text = "Agregar Usuario";
-            // 
-            // lblestado
-            // 
-            this.lblestado.AutoSize = true;
-            this.lblestado.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
-            this.lblestado.Location = new System.Drawing.Point(10, 236);
-            this.lblestado.Name = "lblestado";
-            this.lblestado.Size = new System.Drawing.Size(50, 16);
-            this.lblestado.TabIndex = 62;
-            this.lblestado.Text = "Estado";
-            this.lblestado.Visible = false;
-            // 
-            // cbestado
-            // 
-            this.cbestado.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbestado.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
-            this.cbestado.FormattingEnabled = true;
-            this.cbestado.Items.AddRange(new object[] {
-            "ACTIVO",
-            "INACTIVO"});
-            this.cbestado.Location = new System.Drawing.Point(9, 255);
-            this.cbestado.Name = "cbestado";
-            this.cbestado.Size = new System.Drawing.Size(177, 24);
-            this.cbestado.TabIndex = 61;
-            this.cbestado.Visible = false;
             // 
             // agregarusuarios
             // 
@@ -522,5 +535,6 @@ namespace TrabajoDeGrado.Secciones.Estudiantes_y_Profesores.Estudiantes
         private TextBox Tbtelefono;
         public ComboBox cbestado;
         public Label lblestado;
+        private CheckBox cbreportes;
     }
 }

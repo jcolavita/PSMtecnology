@@ -144,6 +144,7 @@ namespace TrabajoDeGrado.Secciones.Estudiantes_y_Profesores.Estudiantes
             // cbexoneracion
             // 
             this.cbexoneracion.AutoSize = true;
+            this.cbexoneracion.Enabled = false;
             this.cbexoneracion.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
             this.cbexoneracion.Location = new System.Drawing.Point(53, 144);
             this.cbexoneracion.Name = "cbexoneracion";
@@ -151,6 +152,7 @@ namespace TrabajoDeGrado.Secciones.Estudiantes_y_Profesores.Estudiantes
             this.cbexoneracion.TabIndex = 40;
             this.cbexoneracion.Text = "Estudiante Exonerado";
             this.cbexoneracion.UseVisualStyleBackColor = true;
+            this.cbexoneracion.CheckedChanged += new System.EventHandler(this.cbexoneracion_CheckedChanged);
             // 
             // button1
             // 

@@ -23,7 +23,7 @@ namespace TrabajoDeGrado.Secciones.Estudiantes_y_Profesores.Estudiantes
 
         public void Comprobartextbox(){
 
-            if (tbcedula.Text.Length<8)
+            if (tbcedula.Text.Length<7)
             {
                 Btnagregar.Enabled = false;
                 return;
@@ -64,19 +64,20 @@ namespace TrabajoDeGrado.Secciones.Estudiantes_y_Profesores.Estudiantes
                 string clave = "psm" + cedula;
 
                 string sql = "INSERT INTO usuarios(usuario,clave, primernombre,segundonombre,primerapellido,segundoapellido," +
-                "departamento,intento, codigotlf, telefono, correo,estado) VALUES(" +
+                "departamento,intento, codigotlf, telefono, correo,estado,permisos) VALUES(" +
                 "'" + System.Convert.ToString(tbcedula.Text.Trim()) + "'," +
                 "'" + System.Convert.ToString(clave) + "'," +
                 " '" + System.Convert.ToString(tbprimernombre.Text.Trim()) + "'," +
                 " '" + System.Convert.ToString(Tbsegundonombre.Text.Trim()) + "'," +
                 " '" + System.Convert.ToString(Tbprimerapellido.Text.Trim()) + "'," +
                 " '" + System.Convert.ToString(Tbsegundoapellido.Text.Trim()) + "'," +
-                " '" + System.Convert.ToString(cbtipo.Text.Trim()) + "',"+
+                " '" + System.Convert.ToString(cbtipo.Text.Trim()) + "'," +
                 " '" + System.Convert.ToString("0") + "'," +
                 " '" + System.Convert.ToString(tbcodigo.Text) + "'," +
                 " '" + System.Convert.ToString(Tbtelefono.Text) + "'," +
                 " '" + System.Convert.ToString(Tbcorreo.Text) + "'," +
-                " '" + System.Convert.ToString("ACTIVO") + "')";
+                " '" + System.Convert.ToString("ACTIVO") + "'," +
+                " '" + System.Convert.ToString(permisologia()) + "')";
                 BD.agregar(sql, "Usuario registrado satisfactoriamentem, su clave por defecto es: "+ clave, true, usuario, "USUARIO", "CREACION", tbcedula.Text, true,this);
             }
 
@@ -112,36 +113,41 @@ namespace TrabajoDeGrado.Secciones.Estudiantes_y_Profesores.Estudiantes
                 tbcodigo.Text = lector["codigotlf"].ToString().Trim();
                 Tbtelefono.Text = lector["telefono"].ToString().Trim();
                 Tbcorreo.Text = lector["correo"].ToString().Trim();
+                cbestado.Text = lector["estado"].ToString();
                 permisologia = lector["permisos"].ToString();
                 lector.Close();
 
-                if (permisologia.Contains("1 "))
+                if (permisologia.Contains("1,"))
                 {
                     cbeditar.Checked = true;
                 }
-                if (permisologia.Contains("2 "))
+                if (permisologia.Contains("2,"))
                 {
                     cbregistrar.Checked = true;
                 }
-                if (permisologia.Contains("3 "))
+                if (permisologia.Contains("3,"))
                 {
                     cbadmin.Checked = true;
                 }
-                if (permisologia.Contains("4 "))
+                if (permisologia.Contains("4,"))
                 {
                     cbactas.Checked = true;
                 }
-                if (permisologia.Contains("5 "))
+                if (permisologia.Contains("5,"))
                 {
                     cbretrasos.Checked = true;
                 }
-                if (permisologia.Contains("6 "))
+                if (permisologia.Contains("6,"))
                 {
                     cbprestamos.Checked = true;
                 }
-                if (permisologia.Contains("7 "))
+                if (permisologia.Contains("7,"))
                 {
                     cbapertura.Checked = true;
+                }
+                if (permisologia.Contains("8,"))
+                {
+                    cbreportes.Checked = true;
                 }
 
             }
@@ -190,36 +196,42 @@ namespace TrabajoDeGrado.Secciones.Estudiantes_y_Profesores.Estudiantes
             string prestamos = "";
             string permisos;
             string apertura = "";
+            string reportes = "";
+
             if (cbeditar.Checked==true)
             {
-                editar = "1 ";
+                editar = "1,";
             }
             if (cbregistrar.Checked == true)
             {
-                registrar = "2 ";
+                registrar = "2,";
             }
             if (cbadmin.Checked == true)
             {
-                admin = "3 ";
+                admin = "3,";
             }
             if (cbactas.Checked == true)
             {
-                actas = "4 ";
+                actas = "4,";
             }
             if (cbretrasos.Checked == true)
             {
-                retrasos = "5 ";
+                retrasos = "5,";
             }
             if (cbprestamos.Checked == true)
             {
-                prestamos = "6 ";
+                prestamos = "6,";
             }
             if (cbprestamos.Checked == true)
             {
-                apertura = "7 ";
+                apertura = "7,";
+            }
+            if (cbreportes.Checked == true)
+            {
+                reportes = "8,";
             }
 
-            return permisos = editar + registrar + admin + actas + retrasos + prestamos+apertura;
+            return permisos = editar + registrar + admin + actas + retrasos + prestamos + apertura + reportes;
         }
 
         private void cbactas_CheckedChanged(object sender, EventArgs e)
@@ -299,6 +311,8 @@ namespace TrabajoDeGrado.Secciones.Estudiantes_y_Profesores.Estudiantes
                 cbretrasos.Enabled = false;
                 cbprestamos.Enabled = false;
                 cbadmin.Enabled = false;
+                cbreportes.Enabled = false;
+
             }
             if (cbtipo.SelectedIndex==(2 - guia) || cbtipo.SelectedIndex == (3-guia))
             {
@@ -309,6 +323,8 @@ namespace TrabajoDeGrado.Secciones.Estudiantes_y_Profesores.Estudiantes
                 cbretrasos.Enabled = false;
                 cbprestamos.Enabled = false;
                 cbadmin.Enabled = true;
+                cbreportes.Enabled = true;
+
             }
             if (cbtipo.SelectedIndex == (4-guia) || cbtipo.SelectedIndex == (5 - guia))
             {
@@ -319,6 +335,8 @@ namespace TrabajoDeGrado.Secciones.Estudiantes_y_Profesores.Estudiantes
                 cbretrasos.Enabled = true;
                 cbprestamos.Enabled = true;
                 cbadmin.Enabled = true;
+                cbreportes.Enabled = true;
+
             }
         }
 

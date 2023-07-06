@@ -1,7 +1,13 @@
-﻿using Microsoft.VisualBasic;
+﻿using DocumentFormat.OpenXml.Wordprocessing;
+using Microsoft.Office.Interop.Word;
+using Microsoft.VisualBasic;
+using PSMtecnology.Generales.Clases;
 using System;
 using System.Data.SqlClient;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Security.Cryptography;
 using System.Windows.Forms;
 using TrabajoDeGrado.Generales;
@@ -13,6 +19,14 @@ namespace TrabajoDeGrado.Secciones.Estudiantes_y_Profesores.Estudiantes
 {
     public partial class Agregarpasantias : Form
     {
+        Object Omising = System.Reflection.Missing.Value;
+        Microsoft.Office.Interop.Word.Application Words = new Microsoft.Office.Interop.Word.Application();
+        Microsoft.Office.Interop.Word.Document worddoc = new Microsoft.Office.Interop.Word.Document();
+        genero_y_profesiones genprof = new genero_y_profesiones();
+
+        
+
+
         public Agregarpasantias() 
         { 
             InitializeComponent(); 
@@ -101,8 +115,8 @@ namespace TrabajoDeGrado.Secciones.Estudiantes_y_Profesores.Estudiantes
 
             }
 
-            Pasantias frm = (Pasantias)Application.OpenForms["Pasantias"];
-            if (Application.OpenForms.OfType<Pasantias>().Any())
+            Pasantias frm = (Pasantias)System.Windows.Forms.Application.OpenForms["Pasantias"];
+            if (System.Windows.Forms.Application.OpenForms.OfType<Pasantias>().Any())
             {
                 frm.rellenargrid("SELECT p.ID, p.ciestudiante AS CEDULA, p.titulo AS TITULO, " +
             "CONCAT (users.primernombre,' ',users.segundonombre,' ',users.primerapellido,' ', users.segundoapellido) AS ESTUDIANTE," +
@@ -257,33 +271,30 @@ namespace TrabajoDeGrado.Secciones.Estudiantes_y_Profesores.Estudiantes
 
         private void btnacta_Click(object sender, EventArgs e)
         {
-            object objmiss = System.Reflection.Missing.Value;
-            Word.Application objword = new Word.Application();
+            saveFileDialog1.Filter = "Word |*.docx";
+            string ARCHIVO = "";
 
-            string template = Application.StartupPath + @"\templates\pasantia-template.docx";
-            object parametro = template;
-            object nombre = "nombreestudiante", cedula = "ciestudiante", escuela = "escuela", periodo = "periodo",
-                calificacion="nota",dia="dia",mes="mes",año="ano";
-            Word.Document objdoc = objword.Documents.Open(parametro, objmiss);
-            Word.Range nom = objdoc.Bookmarks.get_Item(ref nombre).Range;
-            Word.Range ci = objdoc.Bookmarks.get_Item(ref cedula).Range;
-            Word.Range esc = objdoc.Bookmarks.get_Item(ref escuela).Range;
-            Word.Range peri = objdoc.Bookmarks.get_Item(ref periodo).Range;
-            Word.Range cali = objdoc.Bookmarks.get_Item(ref calificacion).Range;
-            Word.Range day = objdoc.Bookmarks.get_Item(ref dia).Range;
-            Word.Range month = objdoc.Bookmarks.get_Item(ref mes).Range;
-            Word.Range year = objdoc.Bookmarks.get_Item(ref año).Range;
 
-            nom.Text = tbprimernombre.Text +" "+ Tbsegundonombre.Text + " " + Tbprimerapellido.Text + " " + Tbsegundoapellido.Text;
-            ci.Text = tbcedula.Text;
-            esc.Text = cbescuela.Text;
-            peri.Text = cbperiodo.Text;
-            cali.Text = cbcalsificacion.Text;
-            day.Text = DateTime.Today.Day.ToString();
-            month.Text = DateTime.Today.Month.ToString();
-            year.Text = DateTime.Today.Year.ToString();
+            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                ARCHIVO = saveFileDialog1.FileName;
 
-            objword.Visible = true;
+            }
+            File.Copy(System.Windows.Forms.Application.StartupPath + @"\templates\PASANTIAS - ACTA ORDINARIO(TEMPLATE).docx", System.Windows.Forms.Application.StartupPath + @"\temp\temp-teporalpasantias.docx", true);
+
+
+            string ruta = System.Windows.Forms.Application.StartupPath + @"\temp\temp-teporalpasantias.docx";
+            generales.funcion(ruta, "(dia)", DateTime.Today.Day.ToString(), ARCHIVO);
+            generales.funcion(ruta, "(mes)", DateTime.Today.Month.ToString(), ARCHIVO);
+            generales.funcion(ruta, "(año)", DateTime.Today.Year.ToString(), ARCHIVO);
+            generales.funcion(ruta, "(cijurado1)", cbjurado1.SelectedValue.ToString(), ARCHIVO);
+            generales.funcion(ruta, "(cijurado2)", cbjurado2.SelectedValue.ToString(), ARCHIVO);
+            generales.funcion(ruta,"(escuela)", generales.cambia(genprof.escuela(Int32.Parse(tbcedula.Text))), ARCHIVO);
+            generales.funcion(ruta, "(estudiante)", generales.cambia(tbprimernombre.Text + " " + Tbsegundonombre.Text + " " + Tbprimerapellido.Text + " " + Tbsegundoapellido.Text), ARCHIVO);
+            generales.funcion(ruta, "(ciestudiante)", tbcedula.Text, ARCHIVO);
+            generales.funcion(ruta, "(periodo)", cbperiodo.Text, ARCHIVO);
+            generales.funcion(ruta, "(calificacion)", cbcalsificacion.Text, ARCHIVO);
+
         }
     }
 }

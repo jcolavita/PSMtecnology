@@ -42,6 +42,7 @@ namespace TrabajoDeGrado.Secciones.Estudiantes_y_Profesores
             this.lblpagnaactual = new System.Windows.Forms.Label();
             this.lbltotal = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnreporte = new System.Windows.Forms.Button();
             this.cbperiodo = new System.Windows.Forms.ComboBox();
             this.CBescuela = new System.Windows.Forms.ComboBox();
             this.Btnlimpiar = new System.Windows.Forms.Button();
@@ -54,7 +55,7 @@ namespace TrabajoDeGrado.Secciones.Estudiantes_y_Profesores
             this.Btnagregar = new System.Windows.Forms.Button();
             this.lblprofesres = new System.Windows.Forms.Label();
             this.grid = new System.Windows.Forms.DataGridView();
-            this.btnreporte = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.panel2.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grid)).BeginInit();
@@ -153,6 +154,7 @@ namespace TrabajoDeGrado.Secciones.Estudiantes_y_Profesores
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.White;
+            this.panel1.Controls.Add(this.button1);
             this.panel1.Controls.Add(this.btnreporte);
             this.panel1.Controls.Add(this.cbperiodo);
             this.panel1.Controls.Add(this.CBescuela);
@@ -170,6 +172,23 @@ namespace TrabajoDeGrado.Secciones.Estudiantes_y_Profesores
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(843, 102);
             this.panel1.TabIndex = 3;
+            // 
+            // btnreporte
+            // 
+            this.btnreporte.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnreporte.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(81)))), ((int)(((byte)(87)))), ((int)(((byte)(198)))));
+            this.btnreporte.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnreporte.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
+            this.btnreporte.ForeColor = System.Drawing.Color.White;
+            this.btnreporte.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnreporte.Location = new System.Drawing.Point(502, 16);
+            this.btnreporte.Name = "btnreporte";
+            this.btnreporte.Size = new System.Drawing.Size(98, 35);
+            this.btnreporte.TabIndex = 39;
+            this.btnreporte.Text = "Reporte";
+            this.btnreporte.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnreporte.UseVisualStyleBackColor = false;
+            this.btnreporte.Click += new System.EventHandler(this.btnreporte_Click);
             // 
             // cbperiodo
             // 
@@ -378,22 +397,22 @@ namespace TrabajoDeGrado.Secciones.Estudiantes_y_Profesores
             this.grid.TabIndex = 32;
             this.grid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.Gridprofesores_CellContentClick);
             // 
-            // btnreporte
+            // button1
             // 
-            this.btnreporte.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnreporte.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(81)))), ((int)(((byte)(87)))), ((int)(((byte)(198)))));
-            this.btnreporte.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnreporte.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
-            this.btnreporte.ForeColor = System.Drawing.Color.White;
-            this.btnreporte.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnreporte.Location = new System.Drawing.Point(502, 16);
-            this.btnreporte.Name = "btnreporte";
-            this.btnreporte.Size = new System.Drawing.Size(98, 35);
-            this.btnreporte.TabIndex = 39;
-            this.btnreporte.Text = "Reporte";
-            this.btnreporte.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnreporte.UseVisualStyleBackColor = false;
-            this.btnreporte.Click += new System.EventHandler(this.btnreporte_Click);
+            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(81)))), ((int)(((byte)(87)))), ((int)(((byte)(198)))));
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
+            this.button1.ForeColor = System.Drawing.Color.White;
+            this.button1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button1.Location = new System.Drawing.Point(388, 16);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(108, 35);
+            this.button1.TabIndex = 40;
+            this.button1.Text = "Generar Actas";
+            this.button1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.button1.UseVisualStyleBackColor = false;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // proyectoinvestigacion
             // 
@@ -437,5 +456,6 @@ namespace TrabajoDeGrado.Secciones.Estudiantes_y_Profesores
         private Label lblpagnaactual;
         private Label lbltotal;
         private Button btnreporte;
+        private Button button1;
     }
 }

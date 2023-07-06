@@ -30,13 +30,15 @@ namespace TrabajoDeGrado.Secciones.Estudiantes_y_Profesores
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Trabajogrado));
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Trabajogrado));
             this.panel2 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
+            this.btnsiguiente = new System.Windows.Forms.Button();
+            this.btnanterior = new System.Windows.Forms.Button();
             this.lblpaginamaxima = new System.Windows.Forms.Label();
             this.lblpagnaactual = new System.Windows.Forms.Label();
             this.lbltotal = new System.Windows.Forms.Label();
@@ -44,6 +46,8 @@ namespace TrabajoDeGrado.Secciones.Estudiantes_y_Profesores
             this.btnreporte = new System.Windows.Forms.Button();
             this.cbperiodo = new System.Windows.Forms.ComboBox();
             this.CBescuela = new System.Windows.Forms.ComboBox();
+            this.Btnlimpiar = new System.Windows.Forms.Button();
+            this.Btnbusqueda = new System.Windows.Forms.Button();
             this.tbbusqueda = new System.Windows.Forms.TextBox();
             this.Btnagregarproyecto = new System.Windows.Forms.Button();
             this.Btnbuscar = new System.Windows.Forms.Button();
@@ -52,10 +56,7 @@ namespace TrabajoDeGrado.Secciones.Estudiantes_y_Profesores
             this.Btnagregar = new System.Windows.Forms.Button();
             this.lblprofesres = new System.Windows.Forms.Label();
             this.grid = new System.Windows.Forms.DataGridView();
-            this.btnsiguiente = new System.Windows.Forms.Button();
-            this.btnanterior = new System.Windows.Forms.Button();
-            this.Btnlimpiar = new System.Windows.Forms.Button();
-            this.Btnbusqueda = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.panel2.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grid)).BeginInit();
@@ -87,6 +88,34 @@ namespace TrabajoDeGrado.Secciones.Estudiantes_y_Profesores
             this.label1.Size = new System.Drawing.Size(11, 15);
             this.label1.TabIndex = 31;
             this.label1.Text = "/";
+            // 
+            // btnsiguiente
+            // 
+            this.btnsiguiente.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnsiguiente.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnsiguiente.BackgroundImage")));
+            this.btnsiguiente.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnsiguiente.FlatAppearance.BorderSize = 0;
+            this.btnsiguiente.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnsiguiente.Location = new System.Drawing.Point(809, 15);
+            this.btnsiguiente.Name = "btnsiguiente";
+            this.btnsiguiente.Size = new System.Drawing.Size(21, 18);
+            this.btnsiguiente.TabIndex = 30;
+            this.btnsiguiente.UseVisualStyleBackColor = true;
+            this.btnsiguiente.Click += new System.EventHandler(this.btnsiguiente_Click);
+            // 
+            // btnanterior
+            // 
+            this.btnanterior.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnanterior.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnanterior.BackgroundImage")));
+            this.btnanterior.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnanterior.FlatAppearance.BorderSize = 0;
+            this.btnanterior.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnanterior.Location = new System.Drawing.Point(640, 12);
+            this.btnanterior.Name = "btnanterior";
+            this.btnanterior.Size = new System.Drawing.Size(21, 21);
+            this.btnanterior.TabIndex = 29;
+            this.btnanterior.UseVisualStyleBackColor = true;
+            this.btnanterior.Click += new System.EventHandler(this.btnanterior_Click);
             // 
             // lblpaginamaxima
             // 
@@ -126,6 +155,7 @@ namespace TrabajoDeGrado.Secciones.Estudiantes_y_Profesores
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.White;
+            this.panel1.Controls.Add(this.button1);
             this.panel1.Controls.Add(this.btnreporte);
             this.panel1.Controls.Add(this.cbperiodo);
             this.panel1.Controls.Add(this.CBescuela);
@@ -193,6 +223,33 @@ namespace TrabajoDeGrado.Secciones.Estudiantes_y_Profesores
             this.CBescuela.TabIndex = 34;
             this.CBescuela.Text = "ESCUELA";
             this.CBescuela.SelectedIndexChanged += new System.EventHandler(this.CBescuela_SelectedIndexChanged);
+            // 
+            // Btnlimpiar
+            // 
+            this.Btnlimpiar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.Btnlimpiar.Enabled = false;
+            this.Btnlimpiar.FlatAppearance.BorderSize = 0;
+            this.Btnlimpiar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Btnlimpiar.Image = global::PSMtecnology.Properties.Resources.cerrar;
+            this.Btnlimpiar.Location = new System.Drawing.Point(788, 62);
+            this.Btnlimpiar.Name = "Btnlimpiar";
+            this.Btnlimpiar.Size = new System.Drawing.Size(26, 26);
+            this.Btnlimpiar.TabIndex = 11;
+            this.Btnlimpiar.UseVisualStyleBackColor = true;
+            this.Btnlimpiar.Click += new System.EventHandler(this.Btnlimpiar_Click);
+            // 
+            // Btnbusqueda
+            // 
+            this.Btnbusqueda.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.Btnbusqueda.FlatAppearance.BorderSize = 0;
+            this.Btnbusqueda.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Btnbusqueda.Image = global::PSMtecnology.Properties.Resources.lupa;
+            this.Btnbusqueda.Location = new System.Drawing.Point(757, 62);
+            this.Btnbusqueda.Name = "Btnbusqueda";
+            this.Btnbusqueda.Size = new System.Drawing.Size(26, 26);
+            this.Btnbusqueda.TabIndex = 10;
+            this.Btnbusqueda.UseVisualStyleBackColor = true;
+            this.Btnbusqueda.Click += new System.EventHandler(this.Btnbuscarprofesor_Click);
             // 
             // tbbusqueda
             // 
@@ -340,60 +397,22 @@ namespace TrabajoDeGrado.Secciones.Estudiantes_y_Profesores
             this.grid.TabIndex = 32;
             this.grid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.Gridprofesores_CellContentClick);
             // 
-            // btnsiguiente
+            // button1
             // 
-            this.btnsiguiente.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnsiguiente.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnsiguiente.BackgroundImage")));
-            this.btnsiguiente.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnsiguiente.FlatAppearance.BorderSize = 0;
-            this.btnsiguiente.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnsiguiente.Location = new System.Drawing.Point(809, 15);
-            this.btnsiguiente.Name = "btnsiguiente";
-            this.btnsiguiente.Size = new System.Drawing.Size(21, 18);
-            this.btnsiguiente.TabIndex = 30;
-            this.btnsiguiente.UseVisualStyleBackColor = true;
-            this.btnsiguiente.Click += new System.EventHandler(this.btnsiguiente_Click);
-            // 
-            // btnanterior
-            // 
-            this.btnanterior.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnanterior.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnanterior.BackgroundImage")));
-            this.btnanterior.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnanterior.FlatAppearance.BorderSize = 0;
-            this.btnanterior.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnanterior.Location = new System.Drawing.Point(640, 12);
-            this.btnanterior.Name = "btnanterior";
-            this.btnanterior.Size = new System.Drawing.Size(21, 21);
-            this.btnanterior.TabIndex = 29;
-            this.btnanterior.UseVisualStyleBackColor = true;
-            this.btnanterior.Click += new System.EventHandler(this.btnanterior_Click);
-            // 
-            // Btnlimpiar
-            // 
-            this.Btnlimpiar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.Btnlimpiar.Enabled = false;
-            this.Btnlimpiar.FlatAppearance.BorderSize = 0;
-            this.Btnlimpiar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Btnlimpiar.Image = global::PSMtecnology.Properties.Resources.cerrar;
-            this.Btnlimpiar.Location = new System.Drawing.Point(788, 62);
-            this.Btnlimpiar.Name = "Btnlimpiar";
-            this.Btnlimpiar.Size = new System.Drawing.Size(26, 26);
-            this.Btnlimpiar.TabIndex = 11;
-            this.Btnlimpiar.UseVisualStyleBackColor = true;
-            this.Btnlimpiar.Click += new System.EventHandler(this.Btnlimpiar_Click);
-            // 
-            // Btnbusqueda
-            // 
-            this.Btnbusqueda.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.Btnbusqueda.FlatAppearance.BorderSize = 0;
-            this.Btnbusqueda.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Btnbusqueda.Image = global::PSMtecnology.Properties.Resources.lupa;
-            this.Btnbusqueda.Location = new System.Drawing.Point(757, 62);
-            this.Btnbusqueda.Name = "Btnbusqueda";
-            this.Btnbusqueda.Size = new System.Drawing.Size(26, 26);
-            this.Btnbusqueda.TabIndex = 10;
-            this.Btnbusqueda.UseVisualStyleBackColor = true;
-            this.Btnbusqueda.Click += new System.EventHandler(this.Btnbuscarprofesor_Click);
+            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(81)))), ((int)(((byte)(87)))), ((int)(((byte)(198)))));
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
+            this.button1.ForeColor = System.Drawing.Color.White;
+            this.button1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button1.Location = new System.Drawing.Point(388, 18);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(108, 35);
+            this.button1.TabIndex = 41;
+            this.button1.Text = "Generar Actas";
+            this.button1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.button1.UseVisualStyleBackColor = false;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // Trabajogrado
             // 
@@ -437,5 +456,6 @@ namespace TrabajoDeGrado.Secciones.Estudiantes_y_Profesores
         private Label lblpagnaactual;
         private Label lbltotal;
         private Button btnreporte;
+        private Button button1;
     }
 }

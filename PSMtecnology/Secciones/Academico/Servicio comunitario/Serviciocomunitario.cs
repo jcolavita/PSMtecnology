@@ -109,6 +109,7 @@ namespace TrabajoDeGrado.Secciones.Estudiantes_y_Profesores
                 modificar.ID.Visible = true;
                 modificar.LBLID.Visible = true;
                 modificar.ID.Text = gridcomunitario.CurrentRow.Cells["ID"].Value.ToString();
+                modificar.autorrelleno();
                 modificar.cbperiodo.Enabled = true;
 
 

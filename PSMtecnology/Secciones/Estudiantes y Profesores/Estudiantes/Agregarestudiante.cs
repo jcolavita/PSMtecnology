@@ -26,7 +26,7 @@ namespace TrabajoDeGrado.Secciones.Estudiantes_y_Profesores.Estudiantes
                 Btnagregar.Enabled = false;
                 return;
             }
-            if (Tbcedula.Text.Length<8)
+            if (Tbcedula.Text.Length<7)
             {
                 Btnagregar.Enabled = false;
                 return;

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DocumentFormat.OpenXml.Office2010.Excel;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -11,24 +12,27 @@ using System.Windows.Forms;
 using TrabajoDeGrado.Generales;
 using TrabajoDeGrado.Modulos;
 using TrabajoDeGrado.Secciones.Estudiantes_y_Profesores.Estudiantes;
+using GroupDocs.Merger;
+using System.IO;
+using System.Diagnostics;
 
 namespace TrabajoDeGrado.Secciones.Estudiantes_y_Profesores
 {
     public partial class proyectoinvestigacion : Form
     {
-        public proyectoinvestigacion() 
-        { 
-            InitializeComponent(); 
+        public proyectoinvestigacion()
+        {
+            InitializeComponent();
             BD.periodosql(cbperiodo);
         }
 
-        Funciones_Generales comun = new Funciones_Generales(); 
-        Funciones_BD BD= new Funciones_BD();
+        Funciones_Generales comun = new Funciones_Generales();
+        Funciones_BD BD = new Funciones_BD();
         public string permisos;
         paginacion paginacion = new paginacion();
         public string usuario;
 
-        public string sql ="SELECT pi.ID, pi.ciestudiante AS CEDULA, pi.titulo AS TITULO, " +
+        public string sql = "SELECT pi.ID, pi.ciestudiante AS CEDULA, pi.titulo AS TITULO, " +
             "CONCAT (users.primernombre,' ',users.segundonombre,' ',users.primerapellido,' ', users.segundoapellido) AS ESTUDIANTE," +
             "CONCAT (peri.año,'-',peri.semestre) AS PERIODO, pi.fechadefensa AS DEFENSA, est.escuela AS ESCUELA " +
             "FROM proyectoinvestigacion pi " +
@@ -77,12 +81,12 @@ namespace TrabajoDeGrado.Secciones.Estudiantes_y_Profesores
 
         private void Btnlimpiar_Click(object sender, EventArgs e)//limpia el textboxt de la busqueda y carga el grid por defecto
         {
-            rellenargrid(sql); 
+            rellenargrid(sql);
             Btnlimpiar.Enabled = false;
             tbbusqueda.Text = "";
-        } 
-        
-        private void Btnagregarprofesor_Click(object sender, EventArgs e) 
+        }
+
+        private void Btnagregarprofesor_Click(object sender, EventArgs e)
         {
             paneldeformularios panel = new paneldeformularios();
             agregarproyecto agregar = new agregarproyecto();
@@ -107,7 +111,7 @@ namespace TrabajoDeGrado.Secciones.Estudiantes_y_Profesores
             panel.MaximumSize = new Size(535, 675);
             panel.btngeneral.Visible = false;
             panel.btnrustica.Visible = false;
-            agregar.usuario=usuario;
+            agregar.usuario = usuario;
         }
 
         private void Btnbuscarprofesor_Click(object sender, EventArgs e)// realiza una busqueda segun los datos ingresados
@@ -143,13 +147,13 @@ namespace TrabajoDeGrado.Secciones.Estudiantes_y_Profesores
                 {
                     //si la instancia existe la pongo en primer plano
                     frm.Close();
-                    
+
                 }
 
                 panel.Show();
                 panel.formulario(modificar);
                 panel.Size = new Size(535, 675);
-                panel.tamaño= new Size(535, 675);
+                panel.tamaño = new Size(535, 675);
                 panel.MinimumSize = new Size(535, 675);
                 panel.MaximumSize = new Size(535, 675);
                 panel.idgeneral = grid.CurrentRow.Cells["ID"].Value.ToString();
@@ -168,8 +172,8 @@ namespace TrabajoDeGrado.Secciones.Estudiantes_y_Profesores
 
 
                 BD.rellenarestudiante(modificar.tbcedula, consultaestudiante, modificar.tbprimernombre, modificar.Tbsegundonombre, modificar.Tbprimerapellido, modificar.Tbsegundoapellido,
-                modificar.panel, modificar.btnbuscar, modificar.btnlimpiar,modificar.tbcedula, modificar.cbescuela,seleccionarescuela,modificar.cbintento);
-                modificar.rellenarcampos();               
+                modificar.panel, modificar.btnbuscar, modificar.btnlimpiar, modificar.tbcedula, modificar.cbescuela, seleccionarescuela, modificar.cbintento);
+                modificar.rellenarcampos();
                 modificar.subpanel.Enabled = false;
                 modificar.cbfechaservicio.Checked = true;
                 modificar.btnbuscar.Visible = false;
@@ -195,7 +199,7 @@ namespace TrabajoDeGrado.Secciones.Estudiantes_y_Profesores
             "INNER JOIN periodo peri ON peri.id = pi.periodo";
 
             string escuela = " WHERE (est.escuela='" + CBescuela.Text + "')";
-            string periodo = " WHERE (CONCAT (peri.año,'-',peri.semestre) LIKE '" + cbperiodo.Text  + "')";
+            string periodo = " WHERE (CONCAT (peri.año,'-',peri.semestre) LIKE '" + cbperiodo.Text + "')";
 
             if (CBescuela.SelectedIndex > 0 && cbperiodo.SelectedIndex == -1)
             {
@@ -221,7 +225,7 @@ namespace TrabajoDeGrado.Secciones.Estudiantes_y_Profesores
 
         #endregion
 
-        
+
         private void btnanterior_Click(object sender, EventArgs e)
         {
             paginacion.anterior(grid, lblpagnaactual, btnanterior, btnsiguiente);
@@ -238,6 +242,14 @@ namespace TrabajoDeGrado.Secciones.Estudiantes_y_Profesores
             selectorreporte selectorreporte = new selectorreporte();
             selectorreporte.formulario = "proyectoinvestigacion";
             selectorreporte.Show();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            selectoractas actas = new selectoractas();
+            actas.tabla = "proyectoinvestigacion";
+            actas.Show();
+            
         }
     }
 }

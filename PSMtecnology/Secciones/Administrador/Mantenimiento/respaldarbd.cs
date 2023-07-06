@@ -26,7 +26,7 @@ namespace TrabajoDeGrado.Secciones.Estudiantes_y_Profesores.Estudiantes
 
         public void comprobartbrestauracion()
         {
-            var vr = !string.IsNullOrEmpty(tbruta.Text);
+            var vr = !string.IsNullOrEmpty(tbrutarestauracion.Text);
             btnrestaurar.Enabled = vr;
         }
 
@@ -113,14 +113,13 @@ namespace TrabajoDeGrado.Secciones.Estudiantes_y_Profesores.Estudiantes
 
         private void btnruta2_Click(object sender, EventArgs e)
         {
+            
             saveFileDialog1.Filter = "SQL Backup files |*.bak";
             
             if (saveFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 tbruta.Text = "";
                 tbrutarestauracion.Text = saveFileDialog1.FileName;
-
-
             }
         }
 

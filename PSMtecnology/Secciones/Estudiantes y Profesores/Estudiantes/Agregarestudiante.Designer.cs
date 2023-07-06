@@ -305,7 +305,7 @@ namespace TrabajoDeGrado.Secciones.Estudiantes_y_Profesores.Estudiantes
             // 
             this.Tbcedula.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
             this.Tbcedula.Location = new System.Drawing.Point(270, 179);
-            this.Tbcedula.MaxLength = 8;
+            this.Tbcedula.MaxLength = 9;
             this.Tbcedula.Name = "Tbcedula";
             this.Tbcedula.Size = new System.Drawing.Size(133, 22);
             this.Tbcedula.TabIndex = 16;

@@ -25,6 +25,7 @@ namespace TrabajoDeGrado.Generales
         private string resumen;
         mensajecorrecto emergente = new mensajecorrecto();
         mensajeinformacion informacion = new mensajeinformacion();
+        
 
         public byte[] Rustica { get => rustica; set => rustica = value; }
         public string Resumen { get => resumen; set => resumen = value; }

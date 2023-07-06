@@ -16,7 +16,7 @@
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
-    <PublishUrl>C:\Users\josea\Desktop\Nueva carpeta\</PublishUrl>
+    <PublishUrl>F:\psmtec\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
     <UpdateEnabled>false</UpdateEnabled>
@@ -26,7 +26,7 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>4</ApplicationRevision>
+    <ApplicationRevision>6</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -66,6 +66,9 @@
   <ItemGroup>
     <Reference Include="DocumentFormat.OpenXml, Version=2.20.0.0, Culture=neutral, PublicKeyToken=8fb06cb64d019a17, processorArchitecture=MSIL">
       <HintPath>..\packages\DocumentFormat.OpenXml.2.20.0\lib\net46\DocumentFormat.OpenXml.dll</HintPath>
+    </Reference>
+    <Reference Include="GroupDocs.Merger, Version=23.5.0.0, Culture=neutral, PublicKeyToken=716fcc553a201e56, processorArchitecture=MSIL">
+      <HintPath>..\packages\GroupDocs.Merger.23.5.0\lib\net462\GroupDocs.Merger.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Office.Interop.Word, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Office.Interop.Word.15.0.4797.1004\lib\net20\Microsoft.Office.Interop.Word.dll</HintPath>
@@ -109,6 +112,7 @@
   <ItemGroup>
     <Compile Include="Generales\Clases\Funciones BD.cs" />
     <Compile Include="Generales\Clases\Funciones_Generales.cs" />
+    <Compile Include="Generales\Clases\genero y profesiones.cs" />
     <Compile Include="Generales\Clases\lineasdeinvestigacion.cs" />
     <Compile Include="Generales\Clases\materia.cs" />
     <Compile Include="Generales\Clases\paginacion.cs" />
@@ -124,6 +128,18 @@
     </Compile>
     <Compile Include="Generales\Formularios\mensajecorrecto.Designer.cs">
       <DependentUpon>mensajecorrecto.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Generales\Formularios\selectoractas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Generales\Formularios\selectoractas.Designer.cs">
+      <DependentUpon>selectoractas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Generales\Formularios\solvencias.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Generales\Formularios\solvencias.Designer.cs">
+      <DependentUpon>solvencias.cs</DependentUpon>
     </Compile>
     <Compile Include="Generales\Formularios\selectorreporte.cs">
       <SubType>Form</SubType>
@@ -507,6 +523,12 @@
     <EmbeddedResource Include="Generales\Formularios\mensajecorrecto.resx">
       <DependentUpon>mensajecorrecto.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Generales\Formularios\selectoractas.resx">
+      <DependentUpon>selectoractas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Generales\Formularios\solvencias.resx">
+      <DependentUpon>solvencias.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Generales\Formularios\selectorreporte.resx">
       <DependentUpon>selectorreporte.cs</DependentUpon>
     </EmbeddedResource>
@@ -714,6 +736,7 @@
     <EmbeddedResource Include="Secciones\Tenologia Rducativa\Formularios base\retrasos.resx">
       <DependentUpon>retrasos.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="App.config" />
     <None Include="Generales\reportes\DSTG.xsc">
       <DependentUpon>DSTG.xsd</DependentUpon>
     </None>

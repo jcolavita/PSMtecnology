@@ -37,7 +37,9 @@ namespace TrabajoDeGrado.Secciones.Estudiantes_y_Profesores.Estudiantes
             this.Btnagregar = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel = new System.Windows.Forms.Panel();
+            this.label20 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
+            this.cbestatus = new System.Windows.Forms.ComboBox();
             this.tbdepartamento = new System.Windows.Forms.TextBox();
             this.fechaacreditacion = new System.Windows.Forms.DateTimePicker();
             this.cbacreditacion = new System.Windows.Forms.CheckBox();
@@ -79,8 +81,7 @@ namespace TrabajoDeGrado.Secciones.Estudiantes_y_Profesores.Estudiantes
             this.tbcedula = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.lblcabecera = new System.Windows.Forms.Label();
-            this.label20 = new System.Windows.Forms.Label();
-            this.cbestatus = new System.Windows.Forms.ComboBox();
+            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel.SuspendLayout();
@@ -212,6 +213,16 @@ namespace TrabajoDeGrado.Secciones.Estudiantes_y_Profesores.Estudiantes
             this.panel.Size = new System.Drawing.Size(510, 410);
             this.panel.TabIndex = 40;
             // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
+            this.label20.Location = new System.Drawing.Point(389, 220);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(51, 16);
+            this.label20.TabIndex = 76;
+            this.label20.Text = "Estatus";
+            // 
             // label16
             // 
             this.label16.AutoSize = true;
@@ -221,6 +232,19 @@ namespace TrabajoDeGrado.Secciones.Estudiantes_y_Profesores.Estudiantes
             this.label16.Size = new System.Drawing.Size(93, 16);
             this.label16.TabIndex = 42;
             this.label16.Text = "Departamento";
+            // 
+            // cbestatus
+            // 
+            this.cbestatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbestatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
+            this.cbestatus.FormattingEnabled = true;
+            this.cbestatus.Items.AddRange(new object[] {
+            "N/D",
+            "REPROBADO"});
+            this.cbestatus.Location = new System.Drawing.Point(392, 239);
+            this.cbestatus.Name = "cbestatus";
+            this.cbestatus.Size = new System.Drawing.Size(98, 24);
+            this.cbestatus.TabIndex = 75;
             // 
             // tbdepartamento
             // 
@@ -724,29 +748,6 @@ namespace TrabajoDeGrado.Secciones.Estudiantes_y_Profesores.Estudiantes
             this.lblcabecera.TabIndex = 8;
             this.lblcabecera.Text = "Agregar Pasantia";
             // 
-            // label20
-            // 
-            this.label20.AutoSize = true;
-            this.label20.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
-            this.label20.Location = new System.Drawing.Point(389, 220);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(51, 16);
-            this.label20.TabIndex = 76;
-            this.label20.Text = "Estatus";
-            // 
-            // cbestatus
-            // 
-            this.cbestatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbestatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
-            this.cbestatus.FormattingEnabled = true;
-            this.cbestatus.Items.AddRange(new object[] {
-            "N/D",
-            "REPROBADO"});
-            this.cbestatus.Location = new System.Drawing.Point(392, 239);
-            this.cbestatus.Name = "cbestatus";
-            this.cbestatus.Size = new System.Drawing.Size(98, 24);
-            this.cbestatus.TabIndex = 75;
-            // 
             // Agregarpasantias
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -825,5 +826,6 @@ namespace TrabajoDeGrado.Secciones.Estudiantes_y_Profesores.Estudiantes
         public Button btnacta;
         private Label label20;
         public ComboBox cbestatus;
+        private SaveFileDialog saveFileDialog1;
     }
 }

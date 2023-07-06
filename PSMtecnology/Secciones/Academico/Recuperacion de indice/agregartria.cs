@@ -1,6 +1,7 @@
 ﻿using DocumentFormat.OpenXml.Bibliography;
 using DocumentFormat.OpenXml.Wordprocessing;
 using Microsoft.VisualBasic;
+using PSMtecnology.Generales.Clases;
 using System;
 using System.Data.SqlClient;
 using System.Linq;
@@ -18,9 +19,9 @@ namespace TrabajoDeGrado.Secciones.Estudiantes_y_Profesores.Estudiantes
         Funciones_Generales generales = new Funciones_Generales();
         Funciones_BD BD = new Funciones_BD();
         public string usuario;
+        genero_y_profesiones genprof = new genero_y_profesiones();
 
         Pagina_Pincipal.Pagina_principal principal = new Pagina_Pincipal.Pagina_principal();
-
 
         public agregartria() { 
             InitializeComponent(); 
@@ -243,7 +244,7 @@ namespace TrabajoDeGrado.Secciones.Estudiantes_y_Profesores.Estudiantes
             object parametro = template;
             object nombre = "nombre", cedula = "ciestudiante", jurado1top = "jurado1top", jurado2top = "jurado2top",
                jurado1 = "jurado1", jurado2 = "jurado2", titulo = "titulo", tutor = "tutor", citutor = "citutor", 
-               cijurado1 = "cijurado1", cijurado2 = "cijurado2", jefe="jefe", dia = "dia", mes = "mes", año = "ano";
+               cijurado1 = "cijurado1", cijurado2 = "cijurado2", jefe="jefe", dia = "dia", mes = "mes", año = "ano",especialidad = "especialidad";
             Word.Document objdoc = objword.Documents.Open(parametro, objmiss);
             Word.Range nom = objdoc.Bookmarks.get_Item(ref nombre).Range;
             Word.Range ci = objdoc.Bookmarks.get_Item(ref cedula).Range;
@@ -260,22 +261,25 @@ namespace TrabajoDeGrado.Secciones.Estudiantes_y_Profesores.Estudiantes
             Word.Range day = objdoc.Bookmarks.get_Item(ref dia).Range;
             Word.Range month = objdoc.Bookmarks.get_Item(ref mes).Range;
             Word.Range year = objdoc.Bookmarks.get_Item(ref año).Range;
+            Word.Range espe = objdoc.Bookmarks.get_Item(ref especialidad).Range;
 
-            nom.Text = tbprimernombre.Text + " " + Tbsegundonombre.Text + " " + Tbprimerapellido.Text + " " + Tbsegundoapellido.Text;
+
+            nom.Text = generales.cambia( tbprimernombre.Text + " " + Tbsegundonombre.Text + " " + Tbprimerapellido.Text + " " + Tbsegundoapellido.Text);
             ci.Text = tbcedula.Text;
-            jurtop.Text = cbjurado1.Text;
-            jurtop2.Text = cbjurado2.Text;
-            tut.Text = cbtutor.Text;
+            jurtop.Text = genprof.profesion(Int32.Parse(cbjurado1.SelectedValue.ToString())) + " " + generales.cambia(cbjurado1.Text);
+            jurtop2.Text = genprof.profesion(Int32.Parse(cbjurado2.SelectedValue.ToString())) + " " + generales.cambia(cbjurado2.Text);
+            tut.Text = genprof.profesion(Int32.Parse(cbtutor.SelectedValue.ToString())) + " " + generales.cambia(cbtutor.Text);
             cijur1.Text = cbjurado1.SelectedValue.ToString();
             cijur2.Text = cbjurado2.SelectedValue.ToString();
             citut.Text = cbtutor.SelectedValue.ToString();
-            tit.Text = tbtitulo.Text;
-            jurado1bot.Text = cbjurado1.Text;
-            jurado2bot.Text = cbjurado2.Text;
-            jef.Text = cbjefe.Text;
+            tit.Text = generales .cambia(tbtitulo.Text);
+            jurado1bot.Text = genprof.profesion(Int32.Parse(cbjurado1.SelectedValue.ToString())) + " " + generales.cambia(cbjurado1.Text);
+            jurado2bot.Text = genprof.profesion(Int32.Parse(cbjurado2.SelectedValue.ToString())) + " " + generales.cambia(cbjurado2.Text);
+            jef.Text =genprof.profesion(Int32.Parse(cbjefe.SelectedValue.ToString())) +" "+generales.cambia( cbjefe.Text);
             day.Text = DateTime.Today.Day.ToString();
             month.Text = DateTime.Today.Month.ToString();
             year.Text = DateTime.Today.Year.ToString();
+            espe.Text = genprof.escuela(Int32.Parse(tbcedula.Text));
 
             objword.Visible = true;
         }

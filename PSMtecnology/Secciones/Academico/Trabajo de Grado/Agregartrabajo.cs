@@ -9,7 +9,17 @@ using TrabajoDeGrado.Generales.Clases;
 using TrabajoDeGrado.Modulos;
 using Word = Microsoft.Office.Interop.Word;
 using Microsoft.VisualBasic.Devices;
-
+using PSMtecnology.Generales.Clases;
+using TrabajoDeGrado.Secciones.Academico.Pasantias;
+using Microsoft.Office.Interop.Word;
+using System.Runtime.InteropServices;
+using System.IO;
+using DocumentFormat.OpenXml.Wordprocessing;
+using DocumentFormat.OpenXml.Drawing.Charts;
+using DocumentFormat.OpenXml.Office2010.Excel;
+using DocumentFormat.OpenXml.Spreadsheet;
+using System.Collections.Concurrent;
+using System.Globalization;
 
 namespace TrabajoDeGrado.Secciones.Estudiantes_y_Profesores.Estudiantes
 {
@@ -20,6 +30,7 @@ namespace TrabajoDeGrado.Secciones.Estudiantes_y_Profesores.Estudiantes
         lineasdeinvestigacion lineas = new lineasdeinvestigacion();
         public string usuario="";
         Computer pc = new Computer();
+        genero_y_profesiones genprof = new genero_y_profesiones();
 
         Pagina_Pincipal.Pagina_principal principal = new Pagina_Pincipal.Pagina_principal();
 
@@ -107,8 +118,8 @@ namespace TrabajoDeGrado.Secciones.Estudiantes_y_Profesores.Estudiantes
 
 
 
-            Trabajogrado frm = (Trabajogrado)Application.OpenForms["Trabajogrado"];
-            if (Application.OpenForms.OfType<Trabajogrado>().Any())
+            Trabajogrado frm = (Trabajogrado)System.Windows.Forms. Application.OpenForms["Trabajogrado"];
+            if (System.Windows.Forms.Application.OpenForms.OfType<Trabajogrado>().Any())
             {
                 frm.rellenargrid("SELECT tg.ID, tg.ciestudiante AS CEDULA, tg.titulo AS TITULO, " +
             "CONCAT (users.primernombre,' ',users.segundonombre,' ',users.primerapellido,' ', users.segundoapellido) AS ESTUDIANTE," +
@@ -278,68 +289,105 @@ namespace TrabajoDeGrado.Secciones.Estudiantes_y_Profesores.Estudiantes
             tbempresa.CharacterCasing = CharacterCasing.Upper;
         }
 
-        private void btnacta_Click(object sender, EventArgs e)
+        protected void btnacta_Click(object sender, EventArgs e)
         {
-            object objmiss = System.Reflection.Missing.Value;
-            Word.Application objword = new Word.Application();
-
-                string template = Application.StartupPath + @"\templates\tg-template.docx";
-                object parametro = template;
-                object nombre = "nombreestudiante",cedula ="ciestudiante",escuela ="escuela",periodo ="periodo",
-                dia = "dia", mes = "mes", año = "ano", jurado1 = "jurado1", jurado2 = "jurado2", jurado3 = "jurado3",
-                cijurado1 = "cijurado1",cijurado2 = "cijurado2", cijurado3 = "cijurado3", titulo ="titulo",
-                tutor = "tutor", citutor="citutor", jurado1bot= "jurado1bot", jurado2bot = "jurado2bot", jurado3bot = "jurado3bot",
-                cijurado1bot ="cijurado1bot", cijurado2bot = "cijurado2bot", cijurado3bot = "cijurado3bot";
-                Word.Document objdoc = objword.Documents.Open(parametro, objmiss);
-                Word.Range nom = objdoc.Bookmarks.get_Item(ref nombre).Range;
-                Word.Range ci = objdoc.Bookmarks.get_Item(ref cedula).Range;
-                Word.Range esc = objdoc.Bookmarks.get_Item(ref escuela).Range;
-                Word.Range peri = objdoc.Bookmarks.get_Item(ref periodo).Range;
-                Word.Range day = objdoc.Bookmarks.get_Item(ref dia).Range;
-                Word.Range month = objdoc.Bookmarks.get_Item(ref mes).Range;
-                Word.Range year = objdoc.Bookmarks.get_Item(ref año).Range;
-                Word.Range jur1 = objdoc.Bookmarks.get_Item(ref jurado1).Range;
-                Word.Range jur2 = objdoc.Bookmarks.get_Item(ref jurado2).Range;
-                Word.Range jur3 = objdoc.Bookmarks.get_Item(ref jurado3).Range;
-                Word.Range cijur1 = objdoc.Bookmarks.get_Item(ref cijurado1).Range;
-                Word.Range cijur2 = objdoc.Bookmarks.get_Item(ref cijurado2).Range;
-                Word.Range cijur3 = objdoc.Bookmarks.get_Item(ref cijurado3).Range;
-                Word.Range tit = objdoc.Bookmarks.get_Item(ref titulo).Range;
-                Word.Range tut = objdoc.Bookmarks.get_Item(ref tutor).Range;
-                Word.Range citut = objdoc.Bookmarks.get_Item(ref citutor).Range;
-                Word.Range jur1bot = objdoc.Bookmarks.get_Item(ref jurado1bot).Range;
-                Word.Range jur2bot = objdoc.Bookmarks.get_Item(ref jurado2bot).Range;
-                Word.Range jur3bot = objdoc.Bookmarks.get_Item(ref jurado3bot).Range;
-                Word.Range cijur1bot = objdoc.Bookmarks.get_Item(ref cijurado1bot).Range;
-                Word.Range cijur2bot = objdoc.Bookmarks.get_Item(ref cijurado2bot).Range;
-                Word.Range cijur3bot = objdoc.Bookmarks.get_Item(ref cijurado3bot).Range;
+            saveFileDialog1.Filter = "Word |*.docx";
+            string ARCHIVO = "";
 
 
+            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                ARCHIVO = saveFileDialog1.FileName;
 
-                nom.Text = tbprimernombre.Text + Tbsegundonombre.Text + Tbprimerapellido.Text + Tbsegundoapellido.Text;
-                ci.Text = tbcedula.Text;
-                esc.Text = cbescuela.Text;
-                peri.Text = cbperiodo.Text;
-                day.Text = DateTime.Today.Day.ToString();
-                month.Text = DateTime.Today.Month.ToString();
-                year.Text = DateTime.Today.Year.ToString();
-            jur1.Text = cbjurado1.Text;
-            jur2.Text = cbjurado2.Text;
-            jur3.Text = cbjurado3.Text;
-            cijur1.Text = cbjurado1.SelectedValue.ToString();
-            cijur2.Text = cbjurado3.SelectedValue.ToString();
-            cijur3.Text = cbjurado3.SelectedValue.ToString();
-            tit.Text = tbtitulo.Text;
-            tut.Text = cbtutor.Text;
-            citut.Text = cbtutor.SelectedValue.ToString();
-            jur1bot.Text = cbjurado1.Text;
-            jur2bot.Text = cbjurado2.Text;
-            jur3bot.Text = cbjurado3.Text;
-            cijur1bot.Text = cbjurado1.SelectedValue.ToString();
-            cijur2bot.Text = cbjurado3.SelectedValue.ToString();
-            cijur3bot.Text = cbjurado3.SelectedValue.ToString();
+                string codificacionescuela ="";
+            if (cbescuela.Text.Contains("41"))
+            {
+                codificacionescuela = "41";
 
-                objword.Visible = true;
+            }
+            if (cbescuela.Text.Contains("42"))
+            {
+                codificacionescuela = "42";
+
+            }
+            if (cbescuela.Text.Contains("43"))
+            {
+                codificacionescuela = "43";
+
+            }
+            if (cbescuela.Text.Contains("44"))
+            {
+                codificacionescuela = "44";
+
+            }
+            if (cbescuela.Text.Contains("45"))
+            {
+                codificacionescuela = "45";
+
+            }
+            if (cbescuela.Text.Contains("46"))
+            {
+                codificacionescuela = "46";
+
+            }
+            if (cbescuela.Text.Contains("47"))
+            {
+                codificacionescuela = "47";
+
+            }
+            
+            SqlCommand cmndperiodo = new SqlCommand("SELECT año FROM periodo WHERE id ='" + cbperiodo.SelectedValue + "'", BD.conexion);
+            SqlCommand cmndcorrelativo = new SqlCommand("SELECT row2 FROM(SELECT id, ROW_NUMBER() OVER(PARTITION BY tg.periodo ORDER BY CONCAT(us.primernombre, us.segundonombre, us.primerapellido, us.segundoapellido))AS row," +
+                "ROW_NUMBER() OVER(PARTITION BY est.escuela ORDER BY CONCAT(us.primernombre, us.segundonombre, us.primerapellido, us.segundoapellido))AS row2 " +
+                "FROM trabajogrado tg " +
+                "INNER JOIN usuarios us ON tg.ciestudiante = us.usuario " +
+                "INNER JOIN estudiantes est ON us.usuario = est.ciestudiante) trabajogrado WHERE id = '"+ID.Text+"'", BD.conexion);
+
+            int correlativo = Int32.Parse( cmndcorrelativo.ExecuteScalar().ToString());
+            string codificacionperiodo = cmndperiodo.ExecuteScalar().ToString();
+            string sin20 = codificacionperiodo.Replace("20", "");
+
+            int codificacion = (Int32.Parse(codificacionescuela + sin20) * 1000) + correlativo;
+
+
+   
+            
+
+            File.Copy(System.Windows.Forms.Application.StartupPath + @"\templates\TG - ACTA (TEMPLATE).docx", System.Windows.Forms.Application.StartupPath + @"\temp\temp-teporal.docx",true);
+
+
+            string ruta = System.Windows.Forms.Application.StartupPath + @"\temp\temp-teporal.docx";
+
+            generales.funcion(ruta, "(correlativo)",codificacion.ToString(), ARCHIVO);
+            generales.funcion(ruta, "(dia)",generales.cambia(generales.numaletras( Int32.Parse(dtfecha.Value.ToString("dd")))) , ARCHIVO);
+            generales.funcion(ruta, "(mes)", generales.cambia(dtfecha.Value.ToString("MMMM")) , ARCHIVO);
+            generales.funcion(ruta, "(año)", DateTime.Today.Year.ToString(), ARCHIVO);
+            generales.funcion(ruta, "(nombrejurado1)", genprof.profesion(Int32.Parse(cbjurado1.SelectedValue.ToString())) + " " + generales.cambia(cbjurado1.Text), ARCHIVO);
+            generales.funcion(ruta, "(cijurado1)", generales.separarmiles( cbjurado1.SelectedValue.ToString()), ARCHIVO);
+            generales.funcion(ruta, "(nombrejurado2)", genprof.profesion(Int32.Parse(cbjurado2.SelectedValue.ToString())) + " " + generales.cambia(cbjurado2.Text), ARCHIVO);
+            generales.funcion(ruta, "(cijurado2)", generales.separarmiles(cbjurado2.SelectedValue.ToString()), ARCHIVO);
+            generales.funcion(ruta, "(nombrejurado3)", genprof.profesion(Int32.Parse(cbjurado3.SelectedValue.ToString())) + " " + generales.cambia(cbjurado3.Text), ARCHIVO);
+            generales.funcion(ruta, "(cijurado3)", generales.separarmiles(cbjurado3.SelectedValue.ToString()), ARCHIVO);
+            generales.funcion(ruta, "(titulo)", generales.cambia(tbtitulo.Text), ARCHIVO);
+            generales.funcion(ruta, "(ciudadano)", genprof.ciudadano(Int32.Parse(tbcedula.Text)), ARCHIVO);
+            generales.funcion(ruta, "(estudiante)", generales.cambia(tbprimernombre.Text + " " + Tbsegundonombre.Text + " " + Tbprimerapellido.Text + " " + Tbsegundoapellido.Text), ARCHIVO);
+            generales.funcion(ruta, "(cedula)", generales.separarmiles( tbcedula.Text.ToString()), ARCHIVO);
+            generales.funcion(ruta, "(carrera)", generales.cambia(genprof.escuela(Int32.Parse(tbcedula.Text)) ), ARCHIVO);
+            generales.funcion(ruta, "(periodo)", cbperiodo.Text, ARCHIVO);
+            generales.funcion(ruta, "(nombretutor)", genprof.profesion(Int32.Parse(cbtutor.SelectedValue.ToString())) + " " + generales.cambia(cbtutor.Text), ARCHIVO);
+            generales.funcion(ruta, "(citutor)", generales.separarmiles( cbtutor.SelectedValue.ToString()), ARCHIVO);
+            }
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            solvencias solvencias = new solvencias();
+
+            solvencias.tbcedula.Text = tbcedula.Text;
+            solvencias.tbnombre.Text = tbprimernombre.Text + " " + Tbsegundonombre.Text + " " + Tbprimerapellido.Text + " " + Tbsegundoapellido.Text;
+            solvencias.consultar();
+            solvencias.Show();
 
         }
     }

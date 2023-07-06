@@ -247,6 +247,13 @@ namespace TrabajoDeGrado.Secciones.Estudiantes_y_Profesores
             selectorreporte.formulario = "trabajogrado";
             selectorreporte.Show();
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            selectoractas actas= new selectoractas();
+            actas.tabla= "trabajogrado";
+            actas.Show();
+        }
     }
 }
 

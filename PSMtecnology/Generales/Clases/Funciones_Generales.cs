@@ -17,6 +17,8 @@ using PSMtecnology.Properties;
 using DocumentFormat.OpenXml.Packaging;
 using System.IO;
 using Microsoft.VisualBasic;
+using Microsoft.Office.Interop.Word;
+using System.Runtime.InteropServices;
 
 namespace TrabajoDeGrado.Modulos
 {
@@ -117,7 +119,7 @@ namespace TrabajoDeGrado.Modulos
 
         public void cerrarpanel() //cierra el panel de formularios
         {
-            Form frm = Application.OpenForms.Cast<Form>().FirstOrDefault(x => x is paneldeformularios);
+            Form frm = System.Windows.Forms.Application.OpenForms.Cast<Form>().FirstOrDefault(x => x is paneldeformularios);
             if (frm != null)
             {
                 //si la instancia existe la cierra para abrirla nuevamente delante de todo
@@ -125,8 +127,8 @@ namespace TrabajoDeGrado.Modulos
             }
         }
 
-        public string comunes(int i,ComboBox Cbescuela,CheckBox comun41, CheckBox comun42, CheckBox comun43, 
-            CheckBox comun44, CheckBox comun45, CheckBox comun46, CheckBox comun47)
+        public string comunes(int i,ComboBox Cbescuela, System.Windows.Forms.CheckBox comun41, System.Windows.Forms.CheckBox comun42, System.Windows.Forms.CheckBox comun43,
+            System.Windows.Forms.CheckBox comun44, System.Windows.Forms.CheckBox comun45, System.Windows.Forms.CheckBox comun46, System.Windows.Forms.CheckBox comun47)
         {
             string escuela41 = "", escuela42 = "", escuela43 = "", escuela44 = "", escuela45 = "", escuela46 = "", escuela47 = "", comun = "";
 
@@ -173,8 +175,8 @@ namespace TrabajoDeGrado.Modulos
 
         }
 
-        public void autorrellenocomun(string escuela, CheckBox comun41, CheckBox comun42, CheckBox comun43,
-            CheckBox comun44, CheckBox comun45, CheckBox comun46, CheckBox comun47,ComboBox cbescuela)
+        public void autorrellenocomun(string escuela, System.Windows.Forms.CheckBox comun41, System.Windows.Forms.CheckBox comun42, System.Windows.Forms.CheckBox comun43,
+            System.Windows.Forms.CheckBox comun44, System.Windows.Forms.CheckBox comun45, System.Windows.Forms.CheckBox comun46, System.Windows.Forms.CheckBox comun47,ComboBox cbescuela)
         {
             if (escuela.Contains("41,"))
             {
@@ -214,69 +216,84 @@ namespace TrabajoDeGrado.Modulos
 
         }
 
-        public void rellenar(string documentPath, string[,] datos)
+        public string cambia(string cambiatext)
         {
+            string a = Strings.StrConv(cambiatext, VbStrConv.ProperCase);
+            return a;
+        }
 
-            using (SaveFileDialog sfd = new SaveFileDialog() { Filter = "Word |*.docx" })
+        public  void funcion(string a, string b, string c,string nombre)
+        {
+           
+                var app = new Microsoft.Office.Interop.Word.Application();
+
+                var doc = app.Documents.Open(a);
+
+                var range = doc.Range();
+
+                range.Find.Execute(FindText: b, Replace: WdReplace.wdReplaceAll, ReplaceWith: c);
+
+                var shapes = doc.Shapes;
+
+                foreach (Shape shape in shapes)
+                {
+                    var bifingtext = shape.TextFrame.TextRange.Text;
+                    var resultintext = bifingtext.Replace(b, c);
+                    shape.TextFrame.TextRange.Text = resultintext;
+
+                }
+
+                doc.Save();
+                doc.SaveAs2(nombre);
+
+
+                doc.Close();
+
+                Marshal.ReleaseComObject(app);
+
+            foreach (Process proceso in Process.GetProcesses())
             {
-                if (sfd.ShowDialog() == DialogResult.OK)
+                if (proceso.ProcessName == "WINWORD")
                 {
-                    WordprocessingDocument wordDoc = WordprocessingDocument.CreateFromTemplate(documentPath, false);
-
-                    using (wordDoc)
-                    {
-                        string docText;
-                        string Find, Replaace;
-                        int j = 0;
-
-                        for (int i = 0; i == datos.Length; i++)
-                        {
-                            while (j == 0)
-                            {
-                                Find = datos[i, j + 1];
-                                Replaace = datos[i, j];
-
-                                docText = null;
-
-                                StreamReader sr = new StreamReader(wordDoc.MainDocumentPart.GetStream());
-
-
-                                using (sr)
-                                {
-                                    docText = sr.ReadToEnd();
-
-                                }
-
-                                Regex regextext = new Regex("\\(" + Find + "\\)");
-                                docText = regextext.Replace(docText, Replaace);
-
-                                StreamWriter sw = new StreamWriter(wordDoc.MainDocumentPart.GetStream(FileMode.Create));
-
-                                using (sw)
-                                {
-                                    sw.Write(docText);
-                                }
-                                j = 1;
-                            }
-                        }
-                        //WordprocessingDocument word = wordDoc.Clone(sfd.FileName);
-                        //wordDoc.Close();
-                        //word.Close();
-                    }
-
+                    proceso.Kill();
                 }
-
-                if (System.IO.File.Exists(sfd.FileName) == true)
-                {
-                    Process.Start(sfd.FileName);
-                }
-                else
-                {
-                    MessageBox.Show("ERROR");
-                }
-
-
             }
+        }
+
+        public string numaletras(int value)
+        {
+            string Num2Text = "";
+            if (value == 0) Num2Text = "CERO";
+            else if (value == 1) Num2Text = "UNO";
+            else if (value == 2) Num2Text = "DOS";
+            else if (value == 3) Num2Text = "TRES";
+            else if (value == 4) Num2Text = "CUATRO";
+            else if (value == 5) Num2Text = "CINCO";
+            else if (value == 6) Num2Text = "SEIS";
+            else if (value == 7) Num2Text = "SIETE";
+            else if (value == 8) Num2Text = "OCHO";
+            else if (value == 9) Num2Text = "NUEVE";
+            else if (value == 10) Num2Text = "DIEZ";
+            else if (value == 11) Num2Text = "ONCE";
+            else if (value == 12) Num2Text = "DOCE";
+            else if (value == 13) Num2Text = "TRECE";
+            else if (value == 14) Num2Text = "CATORCE";
+            else if (value == 15) Num2Text = "QUINCE";
+            else if (value < 20) Num2Text = "DIECI" + numaletras(value - 10);
+            else if (value == 20) Num2Text = "VEINTE";
+            else if (value < 30) Num2Text = "VEINTI" + numaletras(value - 20);
+            else if (value == 30) Num2Text = "TREINTA";
+           
+            return Num2Text;
+
+        }
+
+        public string separarmiles(string combo)
+        {
+            int paso1 = Int32.Parse(combo);
+            string resultado = paso1.ToString("#,##");
+
+            return resultado;
         }
     }
 }

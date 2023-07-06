@@ -1,20 +1,25 @@
 ﻿using Microsoft.VisualBasic;
+using PSMtecnology.Generales.Clases;
 using PSMTecnology.Generales.Clases;
 using System;
 using System.Data.SqlClient;
+using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Windows.Forms;
 using TrabajoDeGrado.Generales;
 using TrabajoDeGrado.Generales.Clases;
 using TrabajoDeGrado.Modulos;
-using Word = Microsoft.Office.Interop.Word;
+using Microsoft.Office.Interop.Word;
+using System.Runtime.InteropServices;
 
 
 namespace TrabajoDeGrado.Secciones.Estudiantes_y_Profesores.Estudiantes
 {
     public partial class agregarproyecto : Form
     {
+        genero_y_profesiones genprof = new genero_y_profesiones();
+
         public agregarproyecto() 
         { 
             InitializeComponent(); 
@@ -99,8 +104,8 @@ namespace TrabajoDeGrado.Secciones.Estudiantes_y_Profesores.Estudiantes
 
             }
 
-            proyectoinvestigacion frm = (proyectoinvestigacion)Application.OpenForms["proyectoinvestigacion"];
-            if (Application.OpenForms.OfType<proyectoinvestigacion>().Any())
+            proyectoinvestigacion frm = (proyectoinvestigacion)System.Windows.Forms. Application.OpenForms["proyectoinvestigacion"];
+            if (System.Windows.Forms.Application.OpenForms.OfType<proyectoinvestigacion>().Any())
             {
                 frm.rellenargrid("SELECT pi.ID, pi.ciestudiante AS CEDULA, pi.titulo AS TITULO, " +
             "CONCAT (users.primernombre,' ',users.segundonombre,' ',users.primerapellido,' ', users.segundoapellido) AS ESTUDIANTE," +
@@ -260,50 +265,28 @@ namespace TrabajoDeGrado.Secciones.Estudiantes_y_Profesores.Estudiantes
             tbsector.CharacterCasing = CharacterCasing.Upper;
         }
 
-        private void btnacta_Click(object sender, EventArgs e)
+        protected void btnacta_Click(object sender, EventArgs e)
         {
-            object objmiss = System.Reflection.Missing.Value;
-            Word.Application objword = new Word.Application();
 
-            string template = Application.StartupPath + @"\templates\pi-template.docx";
-            object parametro = template;
-            object nombre = "nombre", cedula = "ciestudiante", jurado1 = "jurado1", jurado2 = "jurado2", 
-                titulo = "titulo", tutor = "tutor", citutor = "citutor", cijurado1 = "cijurado1", 
-                cijurado2 = "cijurado2", dia = "dia", mes = "mes", año = "ano",escuela ="escuela",seccion = "seccion",periodo = "periodo";
-            Word.Document objdoc = objword.Documents.Open(parametro, objmiss);
-            Word.Range nom = objdoc.Bookmarks.get_Item(ref nombre).Range;
-            Word.Range ci = objdoc.Bookmarks.get_Item(ref cedula).Range;
-            Word.Range cijur1 = objdoc.Bookmarks.get_Item(ref cijurado1).Range;
-            Word.Range cijur2 = objdoc.Bookmarks.get_Item(ref cijurado2).Range;
-            Word.Range tut = objdoc.Bookmarks.get_Item(ref tutor).Range;
-            Word.Range citut = objdoc.Bookmarks.get_Item(ref citutor).Range;
-            Word.Range jur1 = objdoc.Bookmarks.get_Item(ref jurado1).Range;
-            Word.Range jur2 = objdoc.Bookmarks.get_Item(ref jurado2).Range;
-            Word.Range tit = objdoc.Bookmarks.get_Item(ref titulo).Range;
-            Word.Range day = objdoc.Bookmarks.get_Item(ref dia).Range;
-            Word.Range month = objdoc.Bookmarks.get_Item(ref mes).Range;
-            Word.Range year = objdoc.Bookmarks.get_Item(ref año).Range;
-            Word.Range secc = objdoc.Bookmarks.get_Item(ref seccion).Range;
-            Word.Range peri = objdoc.Bookmarks.get_Item(ref periodo).Range;
-            Word.Range escu = objdoc.Bookmarks.get_Item(ref escuela).Range;
+            string ruta = System.Windows.Forms.Application.StartupPath + @"\templates\TG - ACTA (TEMPLATE).docx";
+            generales.funcion(ruta, "(dia)", DateTime.Today.Day.ToString(), tbcedula.Text);
+            //generales.funcion(ruta, "(mes)", DateTime.Today.Month.ToString(), tbcedula.Text);
+            //generales.funcion(ruta, "(año)", DateTime.Today.Year.ToString(), tbcedula.Text);
+            //generales.funcion(ruta, "(nombrejurado1)", genprof.profesion(Int32.Parse(cbjurado1.SelectedValue.ToString())) + " " + generales.cambia(cbjurado1.Text), tbcedula.Text);
+            //generales.funcion(ruta, "(cijurado1)", cbjurado1.SelectedValue.ToString(), tbcedula.Text);
+            //generales.funcion(ruta, "(nombrejurado2)", genprof.profesion(Int32.Parse(cbjurado2.SelectedValue.ToString())) + " " + generales.cambia(cbjurado2.Text), tbcedula.Text);
+            //generales.funcion(ruta, "(cijurado2)", cbjurado2.SelectedValue.ToString(), tbcedula.Text);
+            //generales.funcion(ruta, "(titulo)", generales.cambia(tbtitulo.Text), tbcedula.Text);
+            //generales.funcion(ruta, "(ciudadano)", genprof.ciudadano(Int32.Parse(tbcedula.Text)), tbcedula.Text);
+            //generales.funcion(ruta, "(estudiante)", generales.cambia(tbprimernombre.Text + " " + Tbsegundonombre.Text + " " + Tbprimerapellido.Text + " " + Tbsegundoapellido.Text), tbcedula.Text);
+            //generales.funcion(ruta, "(cedula)", tbcedula.Text, tbcedula.Text);
+            //generales.funcion(ruta, "(carrera)", generales.cambia(genprof.escuela(Int32.Parse(tbcedula.Text))), tbcedula.Text);
+            //generales.funcion(ruta, "(carrera)", generales.cambia(genprof.escuela(Int32.Parse(tbcedula.Text))), tbcedula.Text);
+            //generales.funcion(ruta, "(periodo)", cbperiodo.Text, tbcedula.Text);
+            //generales.funcion(ruta, "(nombretutor)", genprof.profesion(Int32.Parse(cbtutor.SelectedValue.ToString())) + " " + generales.cambia(cbtutor.Text), tbcedula.Text);
+            //generales.funcion(ruta, "(citutor)", cbtutor.SelectedValue.ToString(), tbcedula.Text);
 
-            nom.Text = tbprimernombre.Text + " " + Tbsegundonombre.Text + " " + Tbprimerapellido.Text + " " + Tbsegundoapellido.Text;
-            ci.Text = tbcedula.Text;
-            tut.Text = cbtutor.Text;
-            cijur1.Text = cbjurado1.SelectedValue.ToString();
-            cijur2.Text = cbjurado2.SelectedValue.ToString();
-            citut.Text = cbtutor.SelectedValue.ToString();
-            tit.Text = tbtitulo.Text;
-            jur1.Text = cbjurado1.Text;
-            jur2.Text = cbjurado2.Text;
-            day.Text = DateTime.Today.Day.ToString();
-            month.Text = DateTime.Today.Month.ToString();
-            year.Text = DateTime.Today.Year.ToString();
-            escu.Text = cbescuela.Text;
-            peri.Text = cbperiodo.Text;
-            secc.Text = tbseccion.Text;
 
-            objword.Visible = true;
 
         }
 

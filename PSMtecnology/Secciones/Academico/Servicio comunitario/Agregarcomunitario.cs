@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualBasic;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Windows.Forms;
 using TrabajoDeGrado.Generales;
@@ -48,7 +49,7 @@ namespace TrabajoDeGrado.Secciones.Estudiantes_y_Profesores.Estudiantes
             if (Btnagregar.Text=="Actualizar")
             {
                 string sql = "UPDATE servcomunitario SET nombrecomunidad='" + tbcomunidad.Text + "',titulo='" + titulo.Text + "', " +
-                            "periodo = '" + cbperiodo.SelectedValue + "', ciestudiantes = '" + estudiantes + "', escuela = '" + escuela + "'";
+                            "periodo = '" + cbperiodo.SelectedValue + "', ciestudiantes = '" + ciestudiantes + "', escuela = '" + escuela + "'";
                 string mensaje = "El proyecto de servicio comunitario ha sido modificado correctamente.";
 
                 BD.actualizar(sql,mensaje, true, usuario, "SERVICIO COMUNITARIO", ID.Text, true, this);
@@ -110,7 +111,8 @@ namespace TrabajoDeGrado.Secciones.Estudiantes_y_Profesores.Estudiantes
 
                     try
                     {
-                        string consultanombre = "SELECT * FROM usuarios WHERE usuario = '" + Tbcedula.Text + "'";
+                        string consultanombre = "SELECT EST.ciestudiante, us.primernombre, us.primerapellido FROM estudiantes EST " +
+                                "INNER JOIN usuarios us ON EST.ciestudiante=us.usuario WHERE EST.ciestudiante = '" + Tbcedula.Text + "'";
 
                         SqlCommand comando2 = new SqlCommand(consultanombre, BD.conexion);
                         SqlDataReader lector2 = comando2.ExecuteReader();
@@ -173,6 +175,15 @@ namespace TrabajoDeGrado.Secciones.Estudiantes_y_Profesores.Estudiantes
                 cbexoneracion.Enabled = false;
                 cbexoneracion.Checked = false;
             }
+            else if (lbestudiantes.Items.Count ==0)
+            {
+                cbexoneracion.Enabled = false;
+                cbexoneracion.Checked = false;
+            }
+            else if (lbestudiantes.Items.Count ==1)
+            {
+                cbexoneracion.Enabled = true;
+            }
         }
 
         private void btneliminar_Click(object sender, EventArgs e)
@@ -184,12 +195,22 @@ namespace TrabajoDeGrado.Secciones.Estudiantes_y_Profesores.Estudiantes
 
                 contador = contador - 1;
             }
-            if (lbestudiantes.Items.Count<=1)
+            if (lbestudiantes.Items.Count > 1)
+            {
+                cbexoneracion.Enabled = false;
+                cbexoneracion.Checked = false;
+            }
+            else if (lbestudiantes.Items.Count == 0)
+            {
+                cbexoneracion.Enabled = false;
+                cbexoneracion.Checked = false;
+            }
+            else if (lbestudiantes.Items.Count == 1)
             {
                 cbexoneracion.Enabled = true;
             }
 
-        
+
         }
 
         private void cbperiodo_TextChanged(object sender, EventArgs e)
@@ -205,6 +226,79 @@ namespace TrabajoDeGrado.Secciones.Estudiantes_y_Profesores.Estudiantes
         private void lbestudiantes_SelectedIndexChanged(object sender, EventArgs e)
         {
             comprobartextbox();
+        }
+
+
+        public void autorrelleno()
+        {
+            string consulta = "SELECT * FROM servcomunitario WHERE id = '" + ID.Text + "'";
+
+            SqlCommand comando = new SqlCommand(consulta, BD.conexion);
+            SqlDataReader lector = comando.ExecuteReader();
+
+            if (lector.Read())
+            {
+                titulo.Text = lector["titulo"].ToString();
+                tbcomunidad.Text = lector["nombrecomunidad"].ToString();
+
+                string ciestudiantes = lector["ciestudiantes"].ToString().Replace(",", string.Empty);
+                //List<string> cedulas = new List<string>();
+                string[] cedulas = new string[30];
+                cedulas = ciestudiantes.Split(Strings.Chr(32));
+                foreach (string values in cedulas)
+                    estudiantes.Add(values);
+                lector.Close();
+
+
+                relaciones();
+
+                if (titulo.Text=="EXONERADO")
+                {
+                    cbexoneracion.Checked = true;
+                }
+                
+
+            }
+        }
+
+        public void relaciones()
+        {
+            foreach (string items in estudiantes)
+            {
+                string consulta = "SELECT CONCAT (primernombre, ' ', segundonombre,' ',primerapellido, ' ',segundoapellido) AS NOMBRE FROM usuarios WHERE usuario = '" + items + "'";
+
+                SqlCommand comando = new SqlCommand(consulta, BD.conexion);
+                SqlDataReader lector = comando.ExecuteReader();
+
+                if (lector.Read())
+                {
+                    string values = lector["NOMBRE"].ToString();
+                    lbestudiantes.Items.Add(values);
+                    lector.Close();
+                }
+            }
+        }
+
+
+
+
+
+        private void cbexoneracion_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cbexoneracion.Checked==true)
+            {
+                
+                button1.Enabled = false;
+                titulo.Text = "EXONERADO";
+                titulo.Enabled = false;
+            }
+            else
+            {
+                button1.Enabled = true;
+                titulo.Enabled = true;
+                titulo.Text = "";
+
+            }
         }
     }
 }

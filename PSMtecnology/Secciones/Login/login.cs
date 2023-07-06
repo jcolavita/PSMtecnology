@@ -60,7 +60,7 @@ namespace TrabajoDeGrado.Secciones.Login
             Pagina_principal principal = new Pagina_principal();
 
             SqlCommand cmndintentoexcedido = new SqlCommand("SELECT * FROM usuarios WHERE usuario = '" + tbusuario.Text + "' AND intento > '2'", BD.conexion);
-            SqlCommand cmndiniciar = new SqlCommand("SELECT * FROM usuarios WHERE usuario = '" + tbusuario.Text + "' AND clave = '" + tbclave.Text + "' AND estado LIKE 'ACTIVO'", BD.conexion);
+            SqlCommand cmndiniciar = new SqlCommand("SELECT * FROM usuarios WHERE usuario = '" + tbusuario.Text + "' AND clave = '" + tbclave.Text + "' COLLATE SQL_Latin1_General_CP1_CS_AS AND estado LIKE 'ACTIVO'", BD.conexion);
             SqlCommand cmndclaveincorrecta = new SqlCommand("SELECT * FROM usuarios WHERE usuario = '" + tbusuario.Text + "'  AND estado = 'ACTIVO'", BD.conexion);
             SqlCommand cmndusuarioinactivo = new SqlCommand("SELECT * FROM usuarios WHERE usuario = '" + tbusuario.Text + "'  AND estado = 'INACTIVO'", BD.conexion);
 
